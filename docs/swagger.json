@@ -1,0 +1,1252 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Apis ANAM Mesa Central UAT",
+    "description": "API de pruebas para integración de proveedores con la mesa central, Nota: Todas las fechas estan en la zona horaria +00:00 (Etc/GMT) es necesario convertir a tu zona horaria local"
+  },
+
+  "host": "localhost:3006",
+  
+  "basePath": "/",
+  "schemes": [
+    "https","http"
+  ],
+  "securityDefinitions": {},
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/getNewTicketsProvider/{idProvider}": {
+      "get": {
+        "description": "Obtiene los tickets nuevos asignados al proveedor, una vez que se reciba los ticket es importante actualizar el Estatus para retirarlos de la bandeja.",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getTicketsProviderCerrados/{idProvider}": {
+      "get": {
+        "description": "Obtiene los tickets cerrados asignados al proveedor, solo se muestran los tickets cerrados en la ultimas 48 horas",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getTicketsProviderEnproceso/{idProvider}": {
+      "get": {
+        "description": "Obtiene los tickets asignados a un proveedor y que se encuentran en proceso en la Mesa Central.",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getTicketsProviderReasignados/{idProvider}": {
+      "get": {
+        "description": "Obtiene los tickets asignados a un proveedor y que se encuentran con un estatus de reasignado que se define en el mapeo de estatus",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getTicketsProviderById/{idProvider}/{newIdTicket}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newIdTicket",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/insertTicketProvider/{idProvider}/{idEmpleadoProvider}": {
+      "post": {
+        "description": "Genera un nuevo ticket en la Mesa Central.",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idEmpleadoProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idTicketExternoProveedor": {
+                  "required": true,
+                  "example": "any"
+                },
+                "idUbicacion": {
+                  "required": true,
+                  "example": 1
+                },
+                "idCategoriaNivelUno": {
+                  "required": true,
+                  "example": 96
+                },
+                "idCategoriaNivelDos": {
+                  "required": true,
+                  "example": 97
+                },
+                "idCategoriaNivelTres": {
+                  "required": true,
+                  "example": 100
+                },
+                "idTipoTicket": {
+                  "required": true,
+                  "example": 38
+                },
+                "idEstatus": {
+                  "required": true,
+                  "example": 49
+                },
+                "idPrioridad": {
+                  "required": true,
+                  "example": 39
+                },
+                "idSeveridad": {
+                  "required": true,
+                  "example": 6
+                },
+                "fechaPromesa": {
+                  "required": true,
+                  "description": "Fecha y hora en formato yyyy-MM-dd HH:mm:ss",
+                  "example": "yyyy-MM-dd HH:mm:ss"
+                },
+                "nombreSolicitante": {
+                  "required": true,
+                  "example": "any"
+                },
+                "descipcionSolicitud": {
+                  "required": true,
+                  "example": "any"
+                },
+                "emailSolicitante": {
+                  "required": true,
+                  "example":"any"
+                },
+                "segmentacionInmuebleDetalle":{
+                   "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+         },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/updateEstatusTicket/{idProvider}": {
+      "put": {
+        "description": "Actualizar el estatus de un Ticekt con base al mapeo que se configura en la Mesa Central.",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idEmpresa": {
+                  "required": true,
+                  "example": 1
+                },
+                "newIdTicket": {
+                  "required": true,
+                  "example": "any"
+                },
+                "idEmpleadoProvider": {
+                  "required": true,
+                  "example": 1
+                },
+                "idEstatus": {
+                  "required": true,
+                  "example": 1
+                },
+                "descipcionSolucion":{
+                  "example": "any"
+               }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+         },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/CancelarTicket/{idProvider}": {
+      "put": {
+        "description": "Se realiza la cancelacion de un Ticekt.",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idEmpresa": {
+                  "required": true,
+                  "example": 1
+                },
+                "newIdTicket": {
+                  "required": true,
+                  "example": "any"
+                },
+                "idEmpleadoProvider": {
+                  "required": true,
+                  "example": 1
+                },
+                "descipcionCancelacion":{
+                  "required": true,
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+         },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/insertBitacoraTicket/{idProvider}/{idTicket}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idTicket",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombreEmpleado": {
+                  "example": "any"
+                },
+                "idEstatusTicket": {
+                  "example": 6
+                },
+                "detalleBitacora": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/insertBitacoraTicketByNewId/{idProvider}/{newIdTicket}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newIdTicket",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombreEmpleado": {
+                  "example": "any"
+                },
+                "detalleBitacora": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/generateNewID/{idProvider}": {
+      "get": {
+        "description": "Permite generar un UUID/NewId para creación de algunos elementos",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getTicketFoto/{idProvider}/{newIdTicket}": {
+      "get": {
+        "description": "Obtener las imegenes adjuntas al ticket",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newIdTicket",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getTicketDocumentos/{idProvider}/{newIdTicket}": {
+      "get": {
+        "description": "Obtener los documentos adjuntos al ticket",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newIdTicket",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/pauseTicket/{idProvider}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "newIdTicket": {
+                  "example": "8E350E0E-50E0-4532-BF6E-XXXXXXXXXX"
+                },
+                "idEmpresa": {
+                  "example": 1
+                },
+                "idEmpleadoProvider": {
+                  "example": 123
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/resumeTicket/{idProvider}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "newIdTicket": {
+                  "example": "8E350E0E-50E0-4532-BF6E-XXXXXXXXXX"
+                },
+                "idEmpresa": {
+                  "example": 1
+                },
+                "idEmpleadoProvider": {
+                  "example": 123
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/updateTicketProvider/{idProvider}/{newIdTicket}": {
+      "put": {
+        "description": "Actualizar la información de un ticket según el mapeo configurado en la Mesa Central. Es obligatorio enviar al menos un campo para la actualización.",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newIdTicket",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "idTipoTicket": {
+                  "required": false,
+                  "example": 1
+                },
+                "idPrioridad": {
+                  "required": false,
+                  "example": 1
+                },
+                "idSeveridad": {
+                  "required": false,
+                  "example": 1
+                },
+                "idCategoriaNivelUno": {
+                  "required": false,
+                  "example": 1
+                },
+                "idCategoriaNivelDos": {
+                  "required": false,
+                  "example": 1
+                },
+                "idCategoriaNivelTres": {
+                  "required": false,
+                  "example": 1
+                },
+                "fechaPromesa": {
+                  "required": false,
+                  "description": "Fecha y hora en formato yyyy-MM-dd HH:mm:ss",
+                  "example": "yyyy-MM-dd HH:mm:ss"
+                },
+                "idUbicacion":{
+                  "required": false,
+                  "example": 1
+               }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+         },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/getCatalogoCategorizaciones/{idProvider}": {
+      "get": {
+        "description": "Obtener las imegenes adjuntas al ticket",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    "/insertMensajeTicketByNewId/{idProvider}/{newIdTicket}": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "newIdTicket",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombreEmpleado": {
+                  "example": "any"
+                },
+                "detalleBitacora": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+    
+    "/getInventario/{idProvider}": {
+      "get": {
+        "description": "Obtiene el inventario o equipos del proveedor.",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "codVPN",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+
+    "/insertInventario/{idProvider}/{idEmpleadoProvider}/{codVPN}": {
+      "post": {
+        "description": "Agregar un nuevo equipo o inventario",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idEmpleadoProvider",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "codVPN",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "noSerie": {
+                  "example": "SN1234568",
+                  "required": true,
+                  "type": "string"
+                },
+                "hostName": {
+                  "example": "Hostname",
+                  "required": true,
+                  "type": "string"
+                },
+                "modelo": {
+                  "example": "Modelo del equipo",
+                  "required": false,
+                  "type": "string"
+                },
+                "codigoBarras": {
+                  "example": "HHY74J4N5GG",
+                  "required": false,
+                  "type": "string"
+                },
+                "dtsReferencia": {
+                  "example": "3 KVA",
+                  "required": false,
+                  "type": "string"
+                },
+                "noParte": {
+                  "example": "7785UIDJ",
+                  "required": false,
+                  "type": "string"
+                },
+                "noInventario": {
+                  "example": "88DIU",
+                  "required": false,
+                  "type": "string"
+                },
+                "dirIP": {
+                  "example": "120.0.0.1",
+                  "required": false,
+                  "type": "string"
+                },
+                "dirMac": {
+                  "example": "00:1B:44:11:3A:B7 y 00:2A:33:22:4C:D3",
+                  "required": false,
+                  "type": "string"
+                },
+                "tipoEquipo_alias": {
+                  "example": "Aire Acondicionado",
+                  "required": false,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    },
+
+    "/updateInventario/{idProvider}/{idEmpleadoProvider}/{noSerie}": {
+      "put": {
+        "description": "Actualizar el inventario.",
+        "parameters": [
+          {
+            "name": "idProvider",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "idEmpleadoProvider",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "name": "noSerie",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "access-token",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "codVPN": {
+                  "example": "32",
+                  "required": false,
+                  "type": "integer"
+                },
+                "hostName": {
+                  "example": "Hostname",
+                  "required": false,
+                  "type": "string"
+                },
+                "modelo": {
+                  "example": "Modelo del equipo",
+                  "required": false,
+                  "type": "string"
+                },
+                "codigoBarras": {
+                  "example": "HHY74J4N5GG",
+                  "required": false,
+                  "type": "string"
+                },
+                "dtsReferencia": {
+                  "example": "3 KVA",
+                  "required": false,
+                  "type": "string"
+                },
+                "noParte": {
+                  "example": "7785UIDJ",
+                  "required": false,
+                  "type": "string"
+                },
+                "noInventario": {
+                  "example": "88DIU",
+                  "required": false,
+                  "type": "string"
+                },
+                "dirIP": {
+                  "example": "120.0.0.1",
+                  "required": false,
+                  "type": "string"
+                },
+                "dirMac": {
+                  "example": "00:1B:44:11:3A:B7 y 00:2A:33:22:4C:D3",
+                  "required": false,
+                  "type": "string"
+                },
+                "tipoEquipo_alias": {
+                  "example": "Aire Acondicionado",
+                  "required": false,
+                  "type": "string"
+                },
+                "estatusEquipo": {
+                  "example": "1 = Activo, 2 = Inactivo ",
+                  "required": false,
+                  "type": "integer"
+                }
+
+                
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+         },
+          "400": {
+            "description": "Bad Request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "todoResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": true
+        },
+        "message": {
+          "type": "string",
+          "example": "Success"
+        },
+        "JsonData": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "idTicket": {
+                "type": "number",
+                "example": 1
+              },
+              "solicitante": {
+                "type": "string",
+                "example": "Nombre"
+              }
+            }
+          }
+        },
+        "count": {
+          "type": "number",
+          "example": 1
+        }
+      }
+    },
+    "errorResponse.400": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean",
+          "example": false
+        },
+        "message": {
+          "type": "string",
+          "example": "Error en el consumo, valide la documentación."
+        }
+      }
+    },
+    "errorResponse.401": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number",
+          "example": 401
+        },
+        "message": {
+          "type": "string",
+          "example": "Authentication failed or user lacks proper authorization."
+        }
+      }
+    },
+    "errorResponse.403": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number",
+          "example": 403
+        },
+        "message": {
+          "type": "string",
+          "example": "You do not have permission to access this resource."
+        }
+      }
+    },
+    "errorResponse.404": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "404"
+        },
+        "message": {
+          "type": "string",
+          "example": "The requested resource could not be found on the server."
+        }
+      }
+    },
+    "errorResponse.500": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "number",
+          "example": 500
+        },
+        "message": {
+          "type": "string",
+          "example": "An unexpected error occurred on the server. Please try again later."
+        }
+      }
+    }
+  }
+}
